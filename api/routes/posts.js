@@ -16,7 +16,6 @@ cloudinary.config({
 //CREATE POST
 router.post("/", async (req, res) => {
   const newPost = new Post(req.body);
-  console.log("My new posttt ===> ", newPost)
   try {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
@@ -57,7 +56,6 @@ router.delete("/:id", async (req, res) => {
     if (post.username === req.body.username) {
       try {
         const public_id = post.photo_publicId;
-        console.log(public_id);
         // Delete image from Cloudinary
         cloudinary.uploader.destroy(public_id, function(error,result) {
           console.log("Deleted from cloudinary : ", result, error);
@@ -80,7 +78,6 @@ router.delete("/:id", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    console.log("GETTT POST ===> ", post)
     res.status(200).json(post);
   } catch (err) {
     res.status(500).json(err);
@@ -106,9 +103,7 @@ router.get("/", async (req, res) => {
 
 router.post('/uploadImage', upload.single('file'), async (req, res) => {
   try {
-    console.log("test11")
     const imagePath = req.file.buffer;
-    console.log(imagePath)
     // Using cloudinary.uploader.upload_stream
     const uploadStream = cloudinary.uploader.upload_stream(
       function(error, result) {
@@ -122,7 +117,6 @@ router.post('/uploadImage', upload.single('file'), async (req, res) => {
       }
     );
     
-    console.log(uploadStream)
     streamifier.createReadStream(imagePath).pipe(uploadStream);
     // res.status(200).json({ success: true, uploadStream });
   } catch (error) {

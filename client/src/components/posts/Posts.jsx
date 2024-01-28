@@ -2,7 +2,6 @@ import Post from "../post/Post";
 import "./posts.css";
 
 export default function Posts({ posts }) {
-  console.log('Posts:', posts);
   //  Check if `posts` is an array or not
   if (!Array.isArray(posts)) {
     return (
