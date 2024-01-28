@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./singlePost.css";
+import baseURL from "../../api";
 
 export default function SinglePost() {
   const location = useLocation();
@@ -17,7 +18,7 @@ export default function SinglePost() {
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get("http://localhost:5000/api/posts/" + path);
+      const res = await axios.get(`${baseURL}/api/posts/` + path);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
@@ -37,7 +38,7 @@ export default function SinglePost() {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/posts/${post._id}`, {
+      await axios.put(`${baseURL}/api/posts/${post._id}`, {
         username: user.username,
         title,
         desc,

@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import "./write.css";
 import axios from "axios";
 import { Context } from "../../context/Context";
+import baseURL from "../../api";
+
 
 export default function Write() {
   const [title, setTitle] = useState("");
@@ -9,6 +11,8 @@ export default function Write() {
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
   const { user } = useContext(Context);
+
+    console.log("BASE URL =====> ", baseURL)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,14 +28,14 @@ export default function Write() {
       data.append("name", filename);
       data.append("file", file);
       try {
-        let response = await axios.post("http://localhost:5000/api/posts/uploadImage", data);
+        let response = await axios.post(`${baseURL}/api/posts/uploadImage`, data);
         let uploadedPhoto = response.data.result.url; 
         newPost.photo = uploadedPhoto; 
         newPost.photo_publicId = response.data.result.public_id;
       } catch (err) {console.log("ERROR: ", err)}
     }
     try {
-      const res = await axios.post("http://localhost:5000/api/posts", newPost);
+      const res = await axios.post(`${baseURL}/api/posts`, newPost);
       window.location.replace("/post/" + res.data._id);
     } catch (err) {}
   };
