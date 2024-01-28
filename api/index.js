@@ -12,7 +12,15 @@ const cors = require('cors');
 
 
 dotenv.config();
-app.use(cors());
+
+// Allow requests from specific domain
+app.use(cors({
+  origin: 'https://sparktales-blog-app-xktf.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,  // Enable credentials (cookies, authorization headers, etc.)
+}));
+
+
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
 
