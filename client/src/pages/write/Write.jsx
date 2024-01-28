@@ -22,14 +22,18 @@ export default function Write() {
       data.append("name", filename);
       data.append("file", file);
       try {
+        console.log("THis is working ")
         let response = await axios.post("http://localhost:5000/api/posts/uploadImage", data);
-        console.log("Image uploaded to cloudinary: ", response)
-        newPost.photo = response.data.secure_url;
-        // let response = cloudinary.uploader.upload(data).then(result => console.log(result))
-        // console.log(response)
+        console.log('thill here its working ')
+        console.log("Image uploaded to cloudinary: ", response.data)
+        let uploadedPhoto = response.data.result.url; 
+        newPost.photo = uploadedPhoto; 
+        console.log(uploadedPhoto)
+        console.log('it worked ')
       } catch (err) {console.log(err)}
     }
     try {
+      console.log('its here ')
       const res = await axios.post("/posts", newPost);
       console.log("Postadded: ", res)
       window.location.replace("/post/" + res.data._id);
