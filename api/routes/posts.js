@@ -90,18 +90,12 @@ router.get("/:id", async (req, res) => {
 //GET ALL POSTS
 router.get("/", async (req, res) => {
   const username = req.query.user;
-  const catName = req.query.cat;
   try {
     let posts;
     if (username) {
       posts = await Post.find({ username });
-    } else if (catName) {
-      posts = await Post.find({
-        categories: {
-          $in: [catName],
-        },
-      });
-    } else {
+    }
+    else {
       posts = await Post.find();
     }
     res.status(200).json(posts);
@@ -109,20 +103,6 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-// router.post('/uploadImage', upload.single('file'), async (req, res) => {
-//   try {
-
-//     console.log("test11")
-//     const imageData = req.file;
-//     console.log(imageData)
-//     const result = await cloudinary.uploader.upload(imageData);
-//     res.status(200).json({ success: true, result });
-//   } catch (error) {
-//     console.error('Error uploading image to Cloudinary:', error);
-//     res.status(500).json({ success: false, error: 'Internal Server Error' });
-//   }
-// });
 
 router.post('/uploadImage', upload.single('file'), async (req, res) => {
   try {

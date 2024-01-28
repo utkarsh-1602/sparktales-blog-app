@@ -1,18 +1,6 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "./sidebar.css";
 
 export default function Sidebar() {
-  const [cats, setCats] = useState([]);
-
-  useEffect(() => {
-    const getCats = async () => {
-      const res = await axios.get("/categories");
-      setCats(res.data);
-    };
-    getCats();
-  }, []);
   return (
     <div className="sidebar">
       <div className="sidebarItem">
@@ -25,16 +13,6 @@ export default function Sidebar() {
         <p>
         Hello, I'm Utkarsh Hadgekar, a full stack developer. With building cross platform robust application with secure backend.  I've a good grasp of data structures and algorithms. I'm also an active Open Source Contributor. Beside my Technical Knowledge, I'm also good at Effective communication with the team and clients.  
         </p>
-      </div>
-      <div className="sidebarItem">
-        <span className="sidebarTitle">CATEGORIES</span>
-        <ul className="sidebarList">
-          {cats.map((c) => (
-            <Link to={`/?cat=${c.name}`} className="link">
-            <li className="sidebarListItem">{c.name}</li>
-            </Link>
-          ))}
-        </ul>
       </div>
       <div className="sidebarItem">
         <span className="sidebarTitle">FOLLOW US</span>

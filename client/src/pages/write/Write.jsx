@@ -33,7 +33,7 @@ export default function Write() {
         newPost.photo_publicId = response.data.result.public_id;
         console.log(uploadedPhoto)
         console.log('it worked ')
-      } catch (err) {console.log(err)}
+      } catch (err) {console.log("ERROR: ", err)}
     }
     try {
       console.log('its here ')
