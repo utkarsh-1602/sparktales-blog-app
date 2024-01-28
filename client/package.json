@@ -1,5 +1,4 @@
 {
-  "homepage": "https://sparktales-blog-qm8ll6waz-utkarsh-1602.vercel.app/",
   "name": "react-blog",
   "version": "0.1.0",
   "private": true,
@@ -38,6 +37,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://localhost:5000/api/"
+  }
 }

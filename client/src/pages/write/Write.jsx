@@ -37,7 +37,7 @@ export default function Write() {
     }
     try {
       console.log('its here ')
-      const res = await axios.post("/posts", newPost);
+      const res = await axios.post("http://localhost:5000/api/posts", newPost);
       console.log("Postadded: ", res)
       window.location.replace("/post/" + res.data._id);
     } catch (err) {}
