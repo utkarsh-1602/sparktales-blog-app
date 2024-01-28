@@ -5,12 +5,14 @@ import { Context } from "../../context/Context";
 
 export default function Write() {
   const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
   const { user } = useContext(Context);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const newPost = {
       username: user.username,
       title,
@@ -28,6 +30,7 @@ export default function Write() {
         console.log("Image uploaded to cloudinary: ", response.data)
         let uploadedPhoto = response.data.result.url; 
         newPost.photo = uploadedPhoto; 
+        newPost.photo_publicId = response.data.result.public_id;
         console.log(uploadedPhoto)
         console.log('it worked ')
       } catch (err) {console.log(err)}
@@ -71,8 +74,8 @@ export default function Write() {
             onChange={e=>setDesc(e.target.value)}
           ></textarea>
         </div>
-        <button className="writeSubmit" type="submit">
-          Publish
+        <button className="writeSubmit" type="submit" disabled={loading}>
+          {loading ? 'Publishing...' : 'Publish'}
         </button>
       </form>
     </div>

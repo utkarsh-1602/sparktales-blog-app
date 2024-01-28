@@ -9,7 +9,8 @@ let streamifier = require('streamifier');
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key:process.env.CLOUDINARY_API_KEY,
-  api_secret:process.env.CLOUDINARY_API_SECRET
+  api_secret:process.env.CLOUDINARY_API_SECRET,
+  api_url:process.env.CLOUDINARY_URL
 });
 
 //CREATE POST
@@ -55,6 +56,13 @@ router.delete("/:id", async (req, res) => {
     const post = await Post.findById(req.params.id);
     if (post.username === req.body.username) {
       try {
+        const public_id = post.photo_publicId;
+        console.log(public_id);
+        // Delete image from Cloudinary
+        cloudinary.uploader.destroy(public_id, function(error,result) {
+          console.log("Deleted from cloudinary : ", result, error);
+        });
+ 
         await post.delete();
         res.status(200).json("Post has been deleted...");
       } catch (err) {
