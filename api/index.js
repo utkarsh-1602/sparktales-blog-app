@@ -20,6 +20,9 @@ app.use(cors({
   credentials: true,  // Enable credentials (cookies, authorization headers, etc.)
 }));
 
+// Handle preflight requests
+app.options('*', cors());
+
 
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
