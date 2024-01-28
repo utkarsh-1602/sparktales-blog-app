@@ -15,7 +15,7 @@ dotenv.config();
 
 // Allow requests from specific domain
 app.use(cors({
-  origin: 'https://sparktales-blog-app-xktf-6ko52gaii-utkarsh-1602.vercel.app',
+  origin: 'https://sparktales-blog-app-xktf.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,  // Enable credentials (cookies, authorization headers, etc.)
 }));
